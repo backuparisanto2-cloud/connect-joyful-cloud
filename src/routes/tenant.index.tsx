@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatRupiah, formatTanggal } from "@/lib/expenses";
+import { exportTenantHistory } from "@/lib/history-export";
 import { roomsQuery } from "@/lib/inventory";
 import { downloadSimplePdf } from "@/lib/pdf-report";
 import {

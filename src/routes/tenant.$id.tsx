@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ExternalLink, FileText, History, MapPin, Phone } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
+import { ExportButtons } from "@/components/ExportButtons";
 import { SignedImage } from "@/components/SignedImage";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatRupiah, formatTanggal } from "@/lib/expenses";
+import { exportTenantHistoryFor, exportTenantPayments } from "@/lib/history-export";
 import { photoUrl } from "@/lib/inventory";
 import { dueInfo, tenantProfilesQuery, totalPaid, type TenantProfile } from "@/lib/tenants";
 
@@ -179,6 +181,7 @@ function TenantDetailPage() {
   return (
     <AppShell
       title={tenant.name}
+      breadcrumbLabel={tenant.name}
       subtitle={`Kamar ${tenant.room_number ?? "—"} · ${totalFiles} berkas terunggah`}
     >
       <div className="space-y-4">
@@ -296,6 +299,13 @@ function TenantDetailPage() {
         </Block>
 
         <Block title={`Riwayat pembayaran · total ${formatRupiah(totalPaid(tenant))}`}>
+          <ExportButtons
+            label="Riwayat pembayaran"
+            disabled={tenant.payments.length === 0}
+            onExport={(format) =>
+              exportTenantPayments(tenant.name, tenant.room_number, tenant.payments, format)
+            }
+          />
           {tenant.payments.length === 0 ? (
             <p className="text-sm text-muted-foreground">Belum ada pembayaran tercatat.</p>
           ) : (
@@ -327,6 +337,13 @@ function TenantDetailPage() {
         </Block>
 
         <Block title="Riwayat perubahan data">
+          <ExportButtons
+            label="Riwayat perubahan"
+            disabled={tenant.status_history.length === 0}
+            onExport={(format) =>
+              exportTenantHistoryFor(tenant.name, tenant.status_history, format)
+            }
+          />
           {tenant.status_history.length === 0 ? (
             <p className="text-sm text-muted-foreground">Belum ada perubahan tercatat.</p>
           ) : (

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { DoorClosed, Wrench, AlertTriangle, Boxes, Wallet } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
+import { DueReminders } from "@/components/DueReminders";
 import { ExpenseSummary } from "@/components/ExpenseSummary";
 import { ConditionBadge } from "@/components/ConditionBadge";
 import {
@@ -145,6 +146,9 @@ function Dashboard() {
           tone="danger"
         />
       </div>
+
+      <DueReminders className="mt-4" />
+
 
       <div className="gold-card mt-4 rounded-xl p-5">
         <div className="flex flex-wrap items-center justify-between gap-2">

@@ -5,6 +5,8 @@ import { AlertTriangle, FileDown, History, Pencil, Search, Trash2, UserPlus } fr
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { DueReminders } from "@/components/DueReminders";
+import { ExportButtons } from "@/components/ExportButtons";
 import { SignedImage } from "@/components/SignedImage";
 import { TenantDetailDialog } from "@/components/TenantDetailDialog";
 import { TenantFullFormDialog } from "@/components/TenantFullFormDialog";
@@ -21,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatRupiah, formatTanggal } from "@/lib/expenses";
+import { exportTenantHistory } from "@/lib/history-export";
 import { roomsQuery } from "@/lib/inventory";
 import { downloadSimplePdf } from "@/lib/pdf-report";
 import {
@@ -178,6 +181,9 @@ function TenantPage() {
             <p className="text-2xl font-semibold text-destructive">{lateCount}</p>
           </div>
         </div>
+
+        <DueReminders onRecordPayment={(tenant) => setPaymentFor(tenant)} />
+
 
         <Tabs defaultValue="daftar">
         <TabsList>
@@ -405,33 +411,15 @@ function TenantHistoryTab() {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-muted-foreground">
           {rows.length} catatan perubahan status dan perpindahan kamar.
         </p>
-        <Button
-          variant="outline"
-          size="sm"
+        <ExportButtons
+          label="Riwayat perubahan"
           disabled={rows.length === 0}
-          onClick={() =>
-            downloadSimplePdf(
-              {
-                title: "Riwayat Perubahan Data Tenant",
-                head: ["Waktu", "Tenant", "Status", "Kamar", "Catatan"],
-                body: rows.map((r) => [
-                  new Date(r.changed_at).toLocaleString("id-ID"),
-                  r.tenant_name ?? "—",
-                  `${r.old_status ?? "—"} → ${r.new_status}`,
-                  `${r.old_room ?? "—"} → ${r.new_room ?? "—"}`,
-                  r.note ?? "—",
-                ]),
-              },
-              "riwayat-tenant.pdf",
-            )
-          }
-        >
-          <FileDown className="mr-1 h-4 w-4" /> PDF
-        </Button>
+          onExport={(format) => exportTenantHistory(rows, format)}
+        />
       </div>
 
       {history.isLoading ? <p className="text-sm text-muted-foreground">Memuat riwayat…</p> : null}

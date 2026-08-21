@@ -405,33 +405,15 @@ function TenantHistoryTab() {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm text-muted-foreground">
           {rows.length} catatan perubahan status dan perpindahan kamar.
         </p>
-        <Button
-          variant="outline"
-          size="sm"
+        <ExportButtons
+          label="Riwayat perubahan"
           disabled={rows.length === 0}
-          onClick={() =>
-            downloadSimplePdf(
-              {
-                title: "Riwayat Perubahan Data Tenant",
-                head: ["Waktu", "Tenant", "Status", "Kamar", "Catatan"],
-                body: rows.map((r) => [
-                  new Date(r.changed_at).toLocaleString("id-ID"),
-                  r.tenant_name ?? "—",
-                  `${r.old_status ?? "—"} → ${r.new_status}`,
-                  `${r.old_room ?? "—"} → ${r.new_room ?? "—"}`,
-                  r.note ?? "—",
-                ]),
-              },
-              "riwayat-tenant.pdf",
-            )
-          }
-        >
-          <FileDown className="mr-1 h-4 w-4" /> PDF
-        </Button>
+          onExport={(format) => exportTenantHistory(rows, format)}
+        />
       </div>
 
       {history.isLoading ? <p className="text-sm text-muted-foreground">Memuat riwayat…</p> : null}

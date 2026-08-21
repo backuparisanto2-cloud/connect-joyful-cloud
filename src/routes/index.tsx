@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { DoorClosed, Wrench, AlertTriangle, Boxes, Wallet } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
+import { DueReminders } from "@/components/DueReminders";
 import { ExpenseSummary } from "@/components/ExpenseSummary";
 import { ConditionBadge } from "@/components/ConditionBadge";
 import {

@@ -113,13 +113,54 @@ function TextSizeControl({ compact = false }: { compact?: boolean }) {
   );
 }
 
+function Breadcrumbs({ leafLabel }: { leafLabel?: string | undefined }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const crumbs = buildCrumbs(pathname, leafLabel);
+  if (crumbs.length < 2) return null;
+
+  return (
+    <nav aria-label="Breadcrumb" className="mb-3">
+      <ol className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
+        {crumbs.map((crumb, index) => {
+          const isLast = index === crumbs.length - 1;
+          const hideOnMobile = index < crumbs.length - 2;
+          return (
+            <li
+              key={`${crumb.label}-${index}`}
+              className={`flex items-center gap-1 ${hideOnMobile ? "hidden sm:flex" : "flex"}`}
+            >
+              {index > 0 ? <ChevronRight className="h-3 w-3 shrink-0 opacity-60" /> : null}
+              {isLast || !crumb.to ? (
+                <span className={isLast ? "font-medium text-foreground" : undefined}>
+                  {crumb.label}
+                </span>
+              ) : (
+                <Link
+                  to={crumb.to}
+                  {...(crumb.search ? { search: crumb.search as never } : {})}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {crumb.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
 export function AppShell({
   title,
   subtitle,
+  breadcrumbLabel,
   children,
 }: {
   title: string;
   subtitle?: string | undefined;
+  /** Label bagian terakhir breadcrumb untuk halaman dinamis. */
+  breadcrumbLabel?: string | undefined;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);

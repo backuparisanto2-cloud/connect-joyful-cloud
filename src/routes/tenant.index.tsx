@@ -5,6 +5,8 @@ import { AlertTriangle, FileDown, History, Pencil, Search, Trash2, UserPlus } fr
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { DueReminders } from "@/components/DueReminders";
+import { ExportButtons } from "@/components/ExportButtons";
 import { SignedImage } from "@/components/SignedImage";
 import { TenantDetailDialog } from "@/components/TenantDetailDialog";
 import { TenantFullFormDialog } from "@/components/TenantFullFormDialog";

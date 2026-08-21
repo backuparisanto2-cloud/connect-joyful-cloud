@@ -182,6 +182,9 @@ function TenantPage() {
           </div>
         </div>
 
+        <DueReminders onRecordPayment={(tenant) => setPaymentFor(tenant)} />
+
+
         <Tabs defaultValue="daftar">
         <TabsList>
           <TabsTrigger value="daftar">Daftar tenant</TabsTrigger>

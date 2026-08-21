@@ -44,6 +44,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { GuideDialog } from "@/components/GuideDialog";
+import { buildCrumbs } from "@/lib/breadcrumbs";
 import { TEXT_SIZES, useTextSize } from "@/lib/text-size";
 
 const nav = [

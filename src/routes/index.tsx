@@ -146,6 +146,9 @@ function Dashboard() {
         />
       </div>
 
+      <DueReminders className="mt-4" />
+
+
       <div className="gold-card mt-4 rounded-xl p-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-xl font-semibold">Kondisi Barang</h2>

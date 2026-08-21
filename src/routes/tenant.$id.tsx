@@ -336,6 +336,13 @@ function TenantDetailPage() {
         </Block>
 
         <Block title="Riwayat perubahan data">
+          <ExportButtons
+            label="Riwayat perubahan"
+            disabled={tenant.status_history.length === 0}
+            onExport={(format) =>
+              exportTenantHistoryFor(tenant.name, tenant.status_history, format)
+            }
+          />
           {tenant.status_history.length === 0 ? (
             <p className="text-sm text-muted-foreground">Belum ada perubahan tercatat.</p>
           ) : (

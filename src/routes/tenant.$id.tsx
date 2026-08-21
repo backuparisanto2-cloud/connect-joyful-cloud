@@ -181,6 +181,7 @@ function TenantDetailPage() {
   return (
     <AppShell
       title={tenant.name}
+      breadcrumbLabel={tenant.name}
       subtitle={`Kamar ${tenant.room_number ?? "—"} · ${totalFiles} berkas terunggah`}
     >
       <div className="space-y-4">

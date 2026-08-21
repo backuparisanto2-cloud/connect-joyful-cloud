@@ -296,6 +296,13 @@ function TenantDetailPage() {
         </Block>
 
         <Block title={`Riwayat pembayaran · total ${formatRupiah(totalPaid(tenant))}`}>
+          <ExportButtons
+            label="Riwayat pembayaran"
+            disabled={tenant.payments.length === 0}
+            onExport={(format) =>
+              exportTenantPayments(tenant.name, tenant.room_number, tenant.payments, format)
+            }
+          />
           {tenant.payments.length === 0 ? (
             <p className="text-sm text-muted-foreground">Belum ada pembayaran tercatat.</p>
           ) : (

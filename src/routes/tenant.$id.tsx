@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ExternalLink, FileText, History, MapPin, Phone } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
+import { ExportButtons } from "@/components/ExportButtons";
 import { SignedImage } from "@/components/SignedImage";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { formatRupiah, formatTanggal } from "@/lib/expenses";
+import { exportTenantHistoryFor, exportTenantPayments } from "@/lib/history-export";
 import { photoUrl } from "@/lib/inventory";
 import { dueInfo, tenantProfilesQuery, totalPaid, type TenantProfile } from "@/lib/tenants";
 

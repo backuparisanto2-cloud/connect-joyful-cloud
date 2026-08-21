@@ -326,6 +326,7 @@ export function AppShell({
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
+        <Breadcrumbs leafLabel={breadcrumbLabel} />
         <div className="mb-6">
           <h1 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             {title}

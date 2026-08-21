@@ -17,6 +17,7 @@ import {
   Type,
   Calculator,
   ChevronDown,
+  ChevronRight,
   ScrollText,
   ExternalLink,
 } from "lucide-react";
